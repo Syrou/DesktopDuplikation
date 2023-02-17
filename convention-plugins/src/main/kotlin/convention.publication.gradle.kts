@@ -62,7 +62,7 @@ publishing {
         // Provide artifacts information requited by Maven Central
         pom {
             name.set("Desktop Duplikation")
-            description.set("Library to make use of windows desktop duplication API to capture teh screen")
+            description.set("Library to make use of windows desktop duplication API to capture the screen")
             url.set("https://github.com/Syrou/DesktopDuplikation")
 
             licenses {

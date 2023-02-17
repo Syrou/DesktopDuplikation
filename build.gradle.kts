@@ -1,10 +1,10 @@
 plugins {
     kotlin("multiplatform") version "1.8.10"
-    id("maven-publish")
+    id("convention.publication")
 }
 
-group = "eu.syrou"
-version = "0.0.1-SNAPSHOT"
+group = "io.github.syrou"
+version = "0.0.1"
 
 repositories {
     mavenCentral()

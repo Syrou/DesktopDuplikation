@@ -1,16 +1,6 @@
 import directx.HRESULT
 import kotlinx.cinterop.*
 import kotlinx.coroutines.runBlocking
-//import platform.windows.HRESULT
-
-
-fun FAILED(hr: HRESULT): Boolean {
-    return hr < 0
-}
-
-fun SUCEEDED(hr: HRESULT): Boolean {
-    return hr >= 0
-}
 
 fun screenShot() {
     val desktopDuplicationManager = DesktopDuplicationManager()

@@ -3,19 +3,11 @@ import directx.CloseDesktop
 import directx.HRESULT
 import directx.MessageBoxA
 import directx.OpenInputDesktop
-import directx.PBYTEVar
 import directx.SetThreadDesktop
 import kotlinx.cinterop.*
 import platform.posix.*
-import platform.posix.uint8_tVar
 import platform.windows.*
 
-data class ScreenData(
-    val width:Int,
-    val height:Int,
-    var buffer:CArrayPointer<ByteVar>?,
-    var rowPitch:Int
-)
 class DesktopDuplicationManager {
     val arena = Arena()
     val D3DDeviceContext = D3D11DeviceContext()
