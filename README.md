@@ -20,7 +20,7 @@ desktopDuplikationManager.use {
     if(!desktopDuplikationManager.initialize()) return
     desktopDuplikationManager.captureNext { sr, desc ->
         desktopDuplikationManager.dumpBitmap(
-            resource.path(),
+            "c:\\test.bmp",
             sr.pData as CArrayPointer<ByteVar>,
             sr.RowPitch.toInt(),
             desc.Width.toInt(),
