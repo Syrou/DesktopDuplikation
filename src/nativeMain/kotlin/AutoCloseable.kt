@@ -1,0 +1,3 @@
+interface AutoCloseable {
+    fun close()
+}

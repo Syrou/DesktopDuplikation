@@ -1,21 +1,22 @@
-import directx.HRESULT
 import kotlinx.cinterop.*
 import kotlinx.coroutines.runBlocking
 
 fun screenShot() {
-    val desktopDuplicationManager = DesktopDuplicationManager()
-    desktopDuplicationManager.initialize()
-    desktopDuplicationManager.captureNext { sr, desc ->
-        println("CAPTURED SCREEN?")
-        desktopDuplicationManager.dumpRGBAtoRGBBmp("c:\\test.bmp", sr.pData as CArrayPointer<ByteVar>, sr.RowPitch.toInt(), desc.Width.toInt(), desc.Height.toInt())
-
+    val desktopDuplikationManager = DesktopDuplikationManager()
+    desktopDuplikationManager.use {
+        if(!desktopDuplikationManager.initialize()) return
+        desktopDuplikationManager.captureNext { sr, desc ->
+            desktopDuplikationManager.dumpBitmap(
+                "c:\\test.bmp",
+                sr.pData as CArrayPointer<ByteVar>,
+                sr.RowPitch.toInt(),
+                desc.Width.toInt(),
+                desc.Height.toInt()
+            )
+        }
     }
-    desktopDuplicationManager.clear()
 }
 
 fun main() {
-    runBlocking {
-        screenShot()
-    }
-
+    screenShot()
 }
