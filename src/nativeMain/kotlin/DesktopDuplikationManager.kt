@@ -12,7 +12,7 @@ class DesktopDuplikationManager : AutoCloseable {
     val arena = Arena()
     private val D3DDeviceContext = D3D11DeviceContext()
     private val D3DDevice = D3D11Device()
-    private val DeskDupl = DXGIOutputDuplication()//arena.alloc<CPointerVar<IDXGIOutputDuplication>>()
+    private val DeskDupl = DXGIOutputDuplication()
     private val OutputDesc = arena.alloc<DXGI_OUTPUT_DESC>()
     var haveFrameLock = false
 
@@ -30,6 +30,10 @@ class DesktopDuplikationManager : AutoCloseable {
         var hr: HRESULT = S_OK
         OutputDesc.Rotation = 2u
         hr = D3DDevice.createDevice(D3DDeviceContext)
+        if(FAILED(hr)){
+            MessageBoxA(null, "D3DDevice->createDevice failed", null, 0)
+            return false
+        }
 
         // Get DXGI device
         val dxgiDevice = DXGIDevice()
@@ -81,7 +85,7 @@ class DesktopDuplikationManager : AutoCloseable {
         return true
     }
 
-    fun captureNext(format:DXGI_FORMAT = DXGI_FORMAT_B8G8R8A8_UNORM,data: (D3D11_MAPPED_SUBRESOURCE, D3D11_TEXTURE2D_DESC) -> Unit) = memScoped {
+    fun captureNext(format:DXGI_FORMAT = DXGI_FORMAT_B8G8R8A8_UNORM, data: (D3D11_MAPPED_SUBRESOURCE, D3D11_TEXTURE2D_DESC) -> Unit) = memScoped {
         var hr: HRESULT
         if (haveFrameLock) {
             haveFrameLock = false
@@ -186,7 +190,6 @@ class DesktopDuplikationManager : AutoCloseable {
                 } else {
                     println("File could not close?")
                 }
-
             } else {
                 println("Failed opening file with error: ${strerror(result)}")
             }
@@ -195,16 +198,12 @@ class DesktopDuplikationManager : AutoCloseable {
     /**
      * clear() - Clears all allocated memory. Either use @see AutoClosable#use
      */
-    fun clear() {
+    override fun close() {
         DeskDupl.Release()
         D3DDeviceContext.Release()
         D3DDevice.release()
         haveFrameLock = false
         arena.clear()
         println("Everything cleared!")
-    }
-
-    override fun close() {
-        clear()
     }
 }

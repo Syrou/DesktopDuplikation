@@ -1,3 +1,3 @@
-interface AutoCloseable {
+sealed interface AutoCloseable {
     fun close()
 }
