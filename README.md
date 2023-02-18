@@ -13,12 +13,19 @@ $ pacman -S mingw-w64-x86_64-headers-git
 ```
 
 # Usage
-
+In order to automatically clear arena allocation, use the .use {} lambda
 ```kotlin
-    val desktopDuplicationManager = DesktopDuplicationManager()
-    desktopDuplicationManager.initialize()
-    desktopDuplicationManager.captureNext { sr, desc ->
-        desktopDuplicationManager.dumpRGBAtoRGBBmp("c:\\test.bmp", sr.pData as CArrayPointer<ByteVar>, sr.RowPitch.toInt(), desc.Width.toInt(), desc.Height.toInt())
+val desktopDuplikationManager = DesktopDuplikationManager()
+desktopDuplikationManager.use {
+    if(!desktopDuplikationManager.initialize()) return
+    desktopDuplikationManager.captureNext { sr, desc ->
+        desktopDuplikationManager.dumpBitmap(
+            resource.path(),
+            sr.pData as CArrayPointer<ByteVar>,
+            sr.RowPitch.toInt(),
+            desc.Width.toInt(),
+            desc.Height.toInt()
+        )
     }
-    desktopDuplicationManager.clear()
+}
 ```
