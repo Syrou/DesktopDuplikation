@@ -12,6 +12,12 @@ install it under C:/msys64/mingw64
 $ pacman -S mingw-w64-x86_64-headers-git
 ```
 
+If you wish to use this code as a pre-compiled library, put this into your gradle mingw64 dependencies:
+
+```groovy
+implementation("io.github.syrou:desktopduplikation:0.0.3")
+```
+
 # Usage
 In order to automatically clear arena allocation, use the .use {} lambda
 ```kotlin
