@@ -2,6 +2,9 @@
 A library to make usage of Windows Desktop Duplication API easy
 on Kotlin Native for target mingw64.
 
+
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin)](http://kotlinlang.org)
+
 # Dependencies
 In order to build this project you need to install directx 11 headers
 to your msys2 installation. Either create a system environment variable
